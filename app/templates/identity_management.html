@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- title -->
+    {% block title %} {{ _('Identity Management') }} {% endblock %}
+    <!-- head -->
+    {% block head %} {{super()}}
+    <!-- css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/identity_management.css') }}">
+    <!-- js -->
+    <script src="{{ url_for('static',filename='js/identity_management.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/identity_management_ajax.js') }}"></script>
+    <!-- head end -->
+    {% endblock %}
+</head>
+
+<body>
+    <!-- body -->
+    {% block body %} {{ super() }}
+    <div class="container">
+        <div class="page-header top-header">
+            <h1>{{ _('Identity Management') }}
+            </h1>
+        </div>
+        <!--table開始-->
+        <div class="col-lg-12">
+            <div class="row">
+                <caption>
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            <select id="search_user_type" class="form-control">
+                                <option value="{{user_type}}" disabled selected>{{user_type}}</option>
+                                <option value="all">all</option>
+                                <option value="user">user</option>
+                                <option value="manager">manager</option>
+                                <option value="admin">admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-1">
+                        <div id="search" class="input-group">
+                            <input id="search_user_name" type="text" class="form-control" placeholder="請輸入關鍵字" value="{{user_name}}">
+                            <span class="input-group-btn">
+                                <button id="user_table" class="btn btn-success" type="button">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    搜尋
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 newInner">
+                        <!-- add_user 跳窗block開始 -->
+                        <div class="modal fade" id="add_user">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h2 class="modal-title">新增使用者</h2>
+                                    </div>
+                                    <div class="modal-body modal-add_user">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-user"></i>
+                                            </span>
+                                            <input id="add_user_name" type="text" class="form-control" placeholder="使用者名稱：peter.wu">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyphicon glyphicon-lock"></i>
+                                                    </span>
+                                                    <input id="add_password" type="password" class="form-control" placeholder="密碼：uwretep7849">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyphicon glyphicon-lock"></i>
+                                                    </span>
+                                                    <input id="add_confirm_password" type="password" class="form-control" placeholder="確認密碼：uwretep7849">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-5 col-sm-5">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-user-circle-o"></i>
+                                                    </span>
+                                                    <select id="add_user_type" class="form-control">
+                                                        <option selected disabled>使用者等級</option>
+                                                        <option>user</option>
+                                                        <option>manager</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-address-card"></i>
+                                            </span>
+                                            <input id="add_full_name" type="text" class="form-control" placeholder="全名：Peter Wu">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-earphone"></i>
+                                            </span>
+                                            <input id="add_phone_number" type="text" class="form-control" placeholder="手機號碼：0987654321">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-envelope"></i>
+                                            </span>
+                                            <input id="add_email" type="text" class="form-control" placeholder="電子信箱：info@pomerobotservice.com">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                                        <button type="button" class="btn btn-success" id="add_btn">確認新增</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- add_user 跳窗blcok結束 -->
+                    </div>
+                </caption>
+                <div class="col-xs-12 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>使用者名稱</th>
+                                    <th>使用者等級</th>
+                                    <th>全名</th>
+                                    <th>手機號碼</th>
+                                    <th>E-mail</th>
+                                    <th><!-- add_user 跳窗按鈕 -->
+                                        <a class="newAcc btn btn-info" href="#add_user" data-toggle="modal">
+                                            <i class="glyphicon glyphicon-plus-sign"></i> 新增
+                                        </a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in result %}
+                                <tr>
+                                    {% if r.role.name != 'root' %}
+                                    <td>{{ r.user_name }}</td>
+                                    <td class="password_hidden">{{ r.password }}</td>
+                                    <td>{{ r.role.name }}</td>
+                                    <td>{{ r.fullName }}</td>
+                                    <td>{{ r.phoneNumber }}</td>
+                                    <td>{{ r.email }}</td>
+                                    <td>
+                                        <a href="#update_user" class="btn btn-warning update_btn" data-toggle="modal">
+                                            <i class="fa fa-refresh"></i> 修改</a>
+                                        {% if r.role.name != 'admin' %}
+                                        <button class="btn btn-danger delete_btn">
+                                            <i class="glyphicon glyphicon-trash"></i> 刪除</button>
+                                        {% endif %}
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <!-- 修改modal開始 -->
+                            <div class="modal fade" id="update_user">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h2 class="modal-title">修改使用者</h2>
+                                        </div>
+                                        <div class="modal-body modal-update_user">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-user"></i>
+                                                </span>
+                                                <input id="update_user_name" type="text" class="form-control update" placeholder="使用者名稱">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-lock"></i>
+                                                        </span>
+                                                        <input id="update_password" type="password" class="form-control update" placeholder="密碼">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-lock"></i>
+                                                        </span>
+                                                        <input id="update_confirm_password" type="password" class="form-control" placeholder="確認密碼">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5 col-sm-5">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-user-circle-o"></i>
+                                                        </span>
+                                                        <select id="update_user_type" class="form-control update">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-address-card"></i>
+                                                </span>
+                                                <input id="update_full_name" type="text" class="form-control update" placeholder="全名">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-earphone"></i>
+                                                </span>
+                                                <input id="update_phone_number" type="text" class="form-control update" placeholder="手機號碼">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-envelope"></i>
+                                                </span>
+                                                <input id="update_email" type="text" class="form-control update" placeholder="電子信箱">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                                            <button type="button" class="btn btn-success update_confirm_btn">確認修改</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 修改modal結束 -->
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /col-sm-12 -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!--table結束-->
+    </div>
+    <!-- body end -->
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- title -->
+    <title>Page Not Found</title>
+    <!-- head -->
+    <!-- css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap3.3.7/bootstrap.min.css') }}">
+    <!-- js -->
+    <!-- head end -->
+</head>
+
+<body>
+    <!-- body -->
+    <div class="container page-header">
+        <h1>{{ _('Page Not Found') }}
+            <small>
+                <a href="javascript:history.back();">{{ _('Back') }}</a>
+            </small>
+        </h1>
+    </div>
+    <!-- body end -->
+</body>
+
+</html>

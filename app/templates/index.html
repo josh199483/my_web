@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <!-- title -->
+    {% block title %} {{ _('index') }} {% endblock %}
+    <!-- head -->
+    {% block head %} {{super()}}
+    <!-- css -->
+    
+    <!-- js -->
+    
+    <!-- head end -->
+    {% endblock %}
+</head>
+
+<body>
+    <!-- body -->
+	{% block body %} {{ super() }}
+	<a href="{{ url_for('main.login') }}">登入成功</a>
+    <div class="container">
+        <div class="page-header">
+            <h1>{{ _('Day Report') }}</h1>
+        </div>
+
+        <!-- 選擇條件 row -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <div class="form-group">
+                    <div id="dateSelected" class="form-control">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <div class="form-group">
+                    <div class="dropdown">
+                        <a href="#" id="menu" class="dropdown-toggle btn btn-default" data-toggle="dropdown">選擇產線
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" id="line">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <button id="query" class="btn btn-success">查詢</button>
+            </div>
+        </div>
+        <!-- 選擇條件 row 結束-->
+
+        <!-- 日報區域 -->
+        <div class="" id="day_report">
+        </div>
+            
+            <!-- body end -->
+        {% endblock %}
+
+</body>
+
+</html>

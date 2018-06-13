@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- title -->
+    {% block title %} {{ _('image') }} {% endblock %}
+    <!-- head -->
+    {% block head %} {{super()}}
+    <!-- css -->
+    
+    <!-- js -->
+    
+    <!-- head end -->
+    {% endblock %}
+</head>
+<body>
+    <!-- body -->
+    {% block body %} {{ super() }}
+    {% from "_userform.html" import render_field %}
+    <form method="POST" action="{{ url_for('main.upload_image') }}" enctype="multipart/form-data">
+        <div>
+            {{ form.hidden_tag() }}
+            {{ render_field(form.uploads) }}
+            {{ render_field(form.submit) }}
+        </div>
+        <div>
+            {% if file_url %}
+            <img src="{{ file_url }}" alt="">
+            {% endif %}
+        </div>
+    </form>
+    <!-- body end -->
+    {% endblock %}
+</body>
+</html>

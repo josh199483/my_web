@@ -1,0 +1,121 @@
+.header {
+    /* opacity: 0; */
+    background-image: url("../images/bg.jpg");
+    /* color: #646A58; */
+    /* position: absolute; */
+    /* top: 0px; */
+}
+
+/* #navber-brand:hover {
+    color: black;
+} */
+
+.navbar-inverse .navbar-nav>li>a,
+.navbar-inverse .navbar-toggle .icon-bar,
+#navber-brand {
+    color: rgba(255, 255, 255, 0.713);
+}
+
+#navber-brand {
+    padding: 0%;
+    padding-top:0.8px;
+}
+#navber-brand img{
+    width:180px;
+    height: 45px;
+}
+
+/* 所有字型的控制 */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: EB Garamond,
+    Microsoft JhengHei !important;
+    /* font-weight: 500; */
+}
+
+/* 讓有些東西不會被navbar擋住 */
+body{
+    padding-top: 3em;
+}
+
+/* 消除html的padding */
+html{
+    height: 100vh;
+}
+
+div.modal-backdrop { /* ajax 讀取中的黑幕 */
+    text-align: center;
+    background-color: initial !important;
+}
+
+
+#IMG_READING { /* ajax讀取中的 gif */
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
+
+
+.hidden { /* 隱藏屬性 */ 
+    /* visibility: hidden; */
+    display: none;
+}
+
+/* footer css start */
+
+.footer {
+    margin-top: 4em;
+    margin-bottom: 0px;
+    width: 100%;
+    background-color: #383E49;
+    color: white;
+}
+
+.footer img {
+    float: left;
+    width: 200px;
+    margin-top: 2em;
+}
+
+.footer h3 {
+    float: left;
+    margin-top: 2.65em;
+}
+
+.footer .fa {
+    margin-left: 1em;
+    margin-top: 4.3em;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    text-decoration: none;
+    /* 去除超連結底線 */
+}
+
+.footer .fa.fa-facebook {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.footer .fa:hover {
+    cursor: pointer;
+    color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+
+.footer p {
+    box-sizing: border-box;
+    height: 2.8em;
+    padding-top: 0.6em;
+    margin-top: 0.8em;
+    margin-bottom: 0em;
+    background-color: #2D323A;
+    text-align: center;
+}
+/* footer css end */

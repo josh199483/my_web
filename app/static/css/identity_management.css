@@ -1,0 +1,80 @@
+#myTabContent {
+    margin-top: 2em;
+}
+
+.table-responsive {
+    margin-top: 1em;
+}
+
+.trToggle {
+    display: none;
+}
+
+
+#search {
+    position: relative;
+    right: 6em;
+}
+
+.top-header {
+    margin-bottom: 1.5em;
+}
+
+.modal-body .input-group {
+    margin-top: 1em;
+}
+
+.modal-footer {
+    margin-top: 1em;
+}
+
+.modal-dialog {
+    position: relative;
+    top: 6em;
+}
+
+.fa-user-circle-o {
+    /* font-size: 1.3em; */
+}
+
+.modal-body {
+    width: 90%;
+    position: relative;
+    left: 2.1em;
+}
+.password_hidden {
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    #search {
+        position: relative;
+        right: 5em;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .newAcc{
+        margin-top: 1em;
+    }
+    #search {
+        position: relative;
+        right: 0em;
+        margin-top: 1em;
+    }
+}
+
+
+/*@media screen and (max-width: 625px) {
+    #search {
+        position: relative;
+        right: 1em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #search {
+        position: relative;
+        left: 1em;
+    }
+}*/

@@ -1,0 +1,6 @@
+.vscode/
+app/translations/
+__pycache__/
+app/__pycache__/
+app/main/__pycache__/
+instance/
